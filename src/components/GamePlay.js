@@ -10,13 +10,13 @@ function GamePlay({ game }) {
         console.log('Action performed');
     };
 
+    // TODO: pull these game play areas into their own components
     return (
         <Grid container spacing={2} sx={{ padding: 2 }}>
           {/* Location Area */}
           <Grid item xs={8}>
             <Card sx={{ minHeight: 300, marginBottom: 2 }}>
               <CardContent>
-                <Typography variant="h6">Location</Typography>
                 <Typography variant="body1">
                   You are in a dark, mysterious forest. The moonlight barely penetrates the thick canopy above.
                   {/* Display more location text here. Optionally, include images as needed. */}
@@ -27,7 +27,6 @@ function GamePlay({ game }) {
             {/* Activity Area */}
             <Card sx={{ minHeight: 100, marginBottom: 2 }}>
               <CardContent>
-                <Typography variant="h6">Activity</Typography>
                 <Typography variant="body2">
                   A rustling sound nearby alerts you to the presence of something unknown...
                   {/* Display activity text here in response to actions. */}
@@ -47,17 +46,16 @@ function GamePlay({ game }) {
             {/* Game Data Area */}
             <Card sx={{ marginBottom: 2 }}>
               <CardContent>
-                <Typography variant="h6">Game Data</Typography>
-                <Typography variant="body2">Game Name: Adventure Quest</Typography>
-                {/* Display more game metadata here as needed. */}
+                <Typography variant="h6">{game.name}</Typography>
+                <Typography variant="body2" sx={{color: '#bb9', fontSize: '0.4rem'}}>
+                    Created: {new Date(game.created_at).toLocaleString()} (v {game.version})
+                </Typography>
               </CardContent>
             </Card>
     
             {/* Character Area */}
             <Card>
               <CardContent>
-                <Typography variant="h6">Character</Typography>
-                <Typography variant="body2">Name: Eldric the Brave</Typography>
                 <Typography variant="body2">Health: 100/100</Typography>
                 {/* Display more character summary information here. */}
               </CardContent>
