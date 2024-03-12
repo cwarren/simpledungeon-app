@@ -12,12 +12,7 @@ function WelcomePage() {
     const [newGameOpen, setNewGameOpen] = useState(false);
     const [newGameName, setNewGameName] = useState('');
 
-    const /* The `nav` variable in the `WelcomePage` component is using the `useNavigate` hook from the
-    "react-router-dom" library. This hook provides a function that allows you to navigate
-    programmatically to different routes within your application. In this case, it is likely
-    used to navigate to a new game page or another route after a new game is successfully
-    created. */
-    nav = useNavigate();
+    const nav = useNavigate();
 
     const handleNewGameOpen = () => {
         setNewGameName('');
@@ -26,8 +21,7 @@ function WelcomePage() {
     const handleNewGameClose = () => setNewGameOpen(false);
     const handleNewGameNameChange = (event) => setNewGameName(event.target.value);
     const handleNewGameSubmit = async () => {
-        console.log('Game name:', newGameName);
-
+        console.log('new game name:', newGameName);
         try {
             const response = await axios.post('http://localhost:3080/games', {
                 name: newGameName
@@ -35,22 +29,16 @@ function WelcomePage() {
     
             console.log('Game created successfully', response.data);
             nav(`/game/${response.data.insertedId}`);
-            // trigger a refresh of the game list?
-            // nav to the new game page? probably this one, once that page exists
 
         } catch (error) {
             if (error.response) {
-                // The server responded with a status code outside the 2xx range
                 console.error('Failed to create game', error.response.data);
             } else if (error.request) {
-                // The request was made but no response was received
                 console.error('No response received', error.request);
             } else {
-                // Something else caused the request to fail
                 console.error('Error', error.message);
             }
         }
-
         handleNewGameClose();
     };
 
