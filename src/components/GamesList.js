@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import GameCard from './GameCard';
 import { Box, CircularProgress, Typography } from '@mui/material'; 
@@ -8,26 +8,25 @@ function GamesList() {
   const [isLoading, setIsLoading] = useState(false); 
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const response = await axios.get('http://localhost:3080/games');
-        setGames(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch games:', error);
-        setError('Could not get games');
-        setIsLoading(false);
-      }
-    };
-
-    fetchGames();
+  const fetchGames = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get('http://localhost:3080/games');
+      setGames(response.data);
+    } catch (error) {
+      console.error('Failed to fetch games:', error);
+      setError('Could not get games');
+    }
+    setIsLoading(false);
   }, []);
 
+  useEffect(() => {
+    fetchGames();
+  }, [fetchGames]);
+
   const reloadGamesList = async () => {
-    console.log('reloadGamesList');
+    await fetchGames();
   }
 
   if (isLoading) {
