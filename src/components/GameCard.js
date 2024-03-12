@@ -40,7 +40,7 @@ function GameCard({ game }) {
           </Grid>
           <Grid item xs={7}>
             <Typography variant="body2" sx={{marginTop: 2, color: '#ffc'}}>
-              {game.description}
+              {game.adventureLog}
             </Typography>
           </Grid>
           <Grid item xs={2} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
