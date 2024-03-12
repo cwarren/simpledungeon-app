@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-// import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
-
 
 function GameCard({ game, onDelete }) {
   console.log('GameCard: game:', game)
@@ -28,36 +27,39 @@ function GameCard({ game, onDelete }) {
   async function handleDeleteGame() {
     try {
       console.log('handling game deletion');
-      // await axios.delete(`http://localhost:3080/games/${game._id}`);
+      await axios.delete(`http://localhost:3080/games/${game._id}`);
       handleCloseDeleteConfirmDialog();
       if (onDelete) onDelete();
     } catch (error) {
       console.error('Failed to delete the game:', error);
-      // TODO: Handle delete error (show an error message)
+      alert("Could not delete this game");
     }
   }
-
 
   return (
     <>
       <Card sx={{ marginBottom: 2, backgroundColor: '#424242', color: '#ffffd8' }}>
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <Typography variant="h6" component="div" sx={{color: '#ffc'}}>
                 {game.name}
               </Typography>
-              <Typography variant="body2" sx={{color: '#bb9'}}>
+              <Typography variant="body2" sx={{color: '#bb9', fontSize: '0.6rem'}}>
                 Created: {new Date(game.created_at).toLocaleString()} (v {game.version})
               </Typography>
-              <Typography variant="body2" sx={{color: '#bb9'}}>
+              <Typography variant="body2" sx={{color: '#bb9', fontSize: '0.6rem'}}>
                 Last Played: {new Date(game.updated_at).toLocaleString()}
               </Typography>
-              <Button variant="outlined" color="error" onClick={handleOpenDeleteConfirmDialog} sx={{ mt: 2 }}>
-                Delete Game
+              <Button label='Delete Game'
+                variant="contained"
+                onClick={handleOpenDeleteConfirmDialog}
+                sx={{ mt: 1, minWidth: 'auto', p: '4px', lineHeight: 1, color: "#c33" }}
+              >
+                <DeleteIcon />
               </Button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={7}>
           <Typography variant="body2" sx={{marginTop: 2, color: '#ffc'}}>
             {game.adventureLog}
           </Typography>
@@ -87,8 +89,10 @@ function GameCard({ game, onDelete }) {
       </DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button onClick={handleCloseDeleteConfirmDialog}>Cancel</Button>
-      <Button onClick={handleDeleteGame} autoFocus color="error">
+      <Button onClick={handleCloseDeleteConfirmDialog} sx={{ color: '#000', backgroundColor: '#f0f0f0', '&:hover': { backgroundColor: '#e0e0e0' } }}>
+        Cancel
+      </Button>
+      <Button onClick={handleDeleteGame} autoFocus sx={{ color: '#fff', backgroundColor: '#d32f2f', '&:hover': { backgroundColor: '#9a0007' } }}>
         Delete
       </Button>
     </DialogActions>
