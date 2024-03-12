@@ -26,6 +26,10 @@ function GamesList() {
     fetchGames();
   }, []);
 
+  const reloadGamesList = async () => {
+    console.log('reloadGamesList');
+  }
+
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', padding: 3 }}>
@@ -53,7 +57,7 @@ function GamesList() {
   return (
     <Box sx={{ padding: 3 }}>
       {games.map(game => (
-        <GameCard key={game._id} game={game} />
+        <GameCard key={game._id} game={game} onDelete={reloadGamesList} />
       ))}
     </Box>
   );
