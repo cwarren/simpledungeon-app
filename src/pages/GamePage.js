@@ -43,6 +43,7 @@ function GamePage() {
     if (isLoading) {
         return (
             <Box sx={{ display: 'flex', justifyContent: 'center', padding: 3 }}>
+                <p>Loading game...</p>
                 <CircularProgress />
             </Box>
         );

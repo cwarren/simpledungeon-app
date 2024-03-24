@@ -6,6 +6,8 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import StatusPage from './pages/StatusPage';
 import WelcomePage from './pages/WelcomePage';
 import GamePage from './pages/GamePage';
+import LoginPage from './pages/LoginPage';
+import LogoutPage from './pages/LogoutPage';
 
 const theme = createTheme({
   palette: {
@@ -45,13 +47,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
         <Routes>
           <Route path="/status" element={<StatusPage />} />
           <Route path="/" element={<WelcomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="/game/:gameId" element={<GamePage />} />
         </Routes>
-      </Router>
     </ThemeProvider>
   );
 }
